@@ -9,7 +9,6 @@ const router = express.Router();
 // route to authenticate user jwt.
 
 router.post('/', (req, res) => {
-  // console.log('this is the auth request.', req.body.userToken);
   const { userToken } = req.body;
   jwt.verify(userToken, jwtSecret, (err, authorizedData) => {
     if (err) {
@@ -24,6 +23,5 @@ router.post('/', (req, res) => {
     }
   });
 });
-
 
 module.exports = router;

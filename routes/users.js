@@ -21,17 +21,16 @@ router.get('/', async (req, res) => {
 // User Registration.
 
 router.post('/register', async (req, res) => {
-  const {
-    firstName, lastName, email, password,
-  } = req.body;
-
+  const { firstName, lastName, email, password } = req.body;
 
   try {
     const checkEmailExists = await UserModel.findOne({ email });
     console.log(checkEmailExists);
-    if (validator.isEmail(email)
-      && validator.isLength(password, { min: 5, max: undefined })
-      && !checkEmailExists) {
+    if (
+      validator.isEmail(email) &&
+      validator.isLength(password, { min: 5, max: undefined }) &&
+      !checkEmailExists
+    ) {
       const salt = bcrypt.genSaltSync(10);
       const hash = bcrypt.hashSync(password, salt);
       const UserInfo = new UserModel({
@@ -92,7 +91,6 @@ router.put('/login', async (req, res) => {
     }
   } catch (error) {
     console.log(error);
-    // res.sendStatus(400);
   }
 });
 
